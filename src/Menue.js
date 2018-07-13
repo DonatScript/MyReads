@@ -1,10 +1,18 @@
 import React, { Component } from 'react'
 
 class Menu extends Component {
-
+  state = {
+    statusBook: 'none'
+  }
+  changeStatus(value) {
+    this.setState(
+      {statusBook: value}
+    )
+  }
   render() {
     return (
-        <select>
+        // <select onChange={(event) => {this.changeStatus(event.target.value)}}>
+        <select >
           <option value="move" disabled>Move to...</option>
           <option value="currentlyReading">Currently Reading</option>
           <option value="wantToRead">Want to Read</option>

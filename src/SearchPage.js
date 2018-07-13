@@ -43,14 +43,11 @@ class SearchPage extends Component {
           </div>
         </div>
         <div className="search-books-results">
-          <ol className="books-grid">
-            {console.log(this.state.data.length)}
             {this.state.data.length !== 0 && (
               this.state.data.map((book) => {
-                return (<li key={book.id}><Book book={book}/></li>)
+                return <Book book={book}/>
               })
             )}
-          </ol>
         </div>
       </div>
     )

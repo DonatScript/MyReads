@@ -13,7 +13,6 @@ class BooksApp extends React.Component {
   componentDidMount() {
     BooksAPI.getAll().then((data) => {
       this.setState({ data })
-      console.log(data);
     }).catch((err) => {
       console.log(err);
     })
@@ -27,7 +26,7 @@ class BooksApp extends React.Component {
         )}/>
         <Route exact path='/' render={() => (
           <div>
-          <LibraryPage />
+          <LibraryPage data={this.state.data}/>
           <div className="open-search">
             <Link
               to='/search'
