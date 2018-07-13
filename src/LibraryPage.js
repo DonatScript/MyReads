@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 class LibraryPage extends Component {
   render() {
@@ -158,9 +159,6 @@ class LibraryPage extends Component {
               </div>
             </div>
           </div>
-        </div>
-        <div className="open-search">
-          <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
         </div>
       </div>
     )

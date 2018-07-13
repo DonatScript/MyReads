@@ -1,6 +1,7 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
-// import * as BooksAPI from './BooksAPI'
+import { Link } from 'react-router-dom'
+import * as BooksAPI from './BooksAPI'
 import SearchPage from './SearchPage'
 import LibraryPage from './LibraryPage'
 import './App.css'
@@ -15,20 +16,37 @@ class BooksApp extends React.Component {
      */
     showSearchPage: false
   }
-
+  componentDidMount() {
+    BooksAPI.getAll().then((data) => {
+      this.setState({ data })
+    })
+  }
   render() {
     return (
       <div className="app">
-        <Route path='/create' render={({ history }) => (
+        {this.state.showSearchPage ? (
+        <Route path='/search' render={({ history }) => (
           <SearchPage
-
+            onSearch={() => {
+              history.push('/')
+            }}
           />
         )}/>
+      ) : (
         <Route exact path='/' render={() => (
+          <div>
           <LibraryPage
 
           />
+          <div className="open-search">
+            <Link
+              to='/search'
+              onClick={() => this.setState({ showSearchPage: true })}
+              >Add a book</Link>
+          </div>
+        </div>
         )}/>
+      )}
       </div>
     )
   }
