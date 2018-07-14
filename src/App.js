@@ -1,22 +1,11 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
 import { Link } from 'react-router-dom'
-import * as BooksAPI from './BooksAPI'
 import SearchPage from './SearchPage'
 import LibraryPage from './LibraryPage'
 import './App.css'
 
 class BooksApp extends React.Component {
-  state = {
-    data: {}
-  }
-  componentDidMount() {
-    BooksAPI.getAll().then((data) => {
-      this.setState({ data })
-    }).catch((err) => {
-      console.log(err);
-    })
-  }
 
   render() {
     return (
@@ -26,13 +15,13 @@ class BooksApp extends React.Component {
         )}/>
         <Route exact path='/' render={() => (
           <div>
-          <LibraryPage data={this.state.data}/>
-          <div className="open-search">
-            <Link
-              to='/search'
-              >Add a book</Link>
+            <LibraryPage />
+            <div className="open-search">
+              <Link
+                to='/search'
+                >Add a book</Link>
+            </div>
           </div>
-        </div>
         )}/>
       </div>
     )
