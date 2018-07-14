@@ -4,22 +4,18 @@ import BookShelf from './BookShelf'
 
 class LibraryPage extends Component {
   state = {
-    booksWantToRead: [],
-    booksCurrentlyReading: [],
-    booksRead: []
+    data: []
   }
   componentDidMount() {
     BooksAPI.getAll().then((data) => {
-      this.setState({
-        booksCurrentlyReading: data.filter((book) => {return (book.shelf === 'currentlyReading')}),
-        booksWantToRead: data.filter((book) => {return (book.shelf === 'wantToRead')}),
-        booksRead: data.filter((book) => {return (book.shelf === 'read')})
-      })
-    }).catch((err) => {
-      console.log(err);
+      this.setState({ data })
     })
   }
-
+  filterBooks(type){
+    return (this.state.data.filter((book) => {
+      return (book.shelf === type)
+    }))
+  }
   render() {
     return (
       <div className="list-books">
@@ -28,9 +24,15 @@ class LibraryPage extends Component {
         </div>
         <div className="list-books-content">
           <div>
-            <BookShelf bookShelfTitle={'Currently Reading'} data={this.state.booksCurrentlyReading}/>
-            <BookShelf bookShelfTitle={'Want to Read'} data={this.state.booksWantToRead}/>
-            <BookShelf bookShelfTitle={'Read'} data={this.state.booksRead}/>
+            <BookShelf bookShelfTitle={'Currently Reading'}
+              data={this.filterBooks('currentlyReading')}
+            />
+            <BookShelf bookShelfTitle={'Want to Read'}
+              data={this.filterBooks('wantToRead')}
+            />
+            <BookShelf bookShelfTitle={'Read'}
+              data={this.filterBooks('read')}
+            />
           </div>
         </div>
       </div>

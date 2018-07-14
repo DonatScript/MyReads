@@ -5,19 +5,13 @@ import Book from './Book'
 class BookShelf extends Component {
 
   state = {
+    data: []
+  }
 
-  }
-  componentWillMount() {
-    BooksAPI.getAll().then((data) => {
-      console.log(data);
-      this.setState(  data: data  )
-    }).catch((err) => {
-      console.log(err);
-    })
-  }
   updateShelf(book, shelf) {
+    console.log(book,shelf)
     BooksAPI.update(book,shelf).then((data) =>{
-      console.log(data);
+      console.log(data)
       this.setState({ data })
     })
   }
@@ -30,7 +24,10 @@ class BookShelf extends Component {
           <ol className="books-grid">
             {this.props.data.length !== 0 && (
                 this.props.data.map((book) => {
-                  return (<li key={book.id}><Book book={book}/></li>)
+                  return (
+                    <li key={book.id}>
+                      <Book book={book} updateShelf={this.updateShelf}/>
+                    </li>)
                 })
             )}
         </ol>

@@ -3,19 +3,20 @@ import Menue from './Menue'
 
 class Book extends Component {
   state = {
-    shelf: ''
+
   }
+
   render() {
     return (
         <div className="book">
           <div className="book-top">
             <div className="book-cover"
               // style={{ width: 128, height: 193 }}>
-                style={{ width: 128, height: 193, backgroundImage: `url(${this.props.book.imageLinks.smallThumbnail})` }}> 
+                style={{ width: 128, height: 193, backgroundImage: `url(${this.props.book.imageLinks.thumbnail})` }}>
 
             </div>
             <div className="book-shelf-changer">
-              <Menue shelf={this.state.shelf}/>
+              <Menue book={this.props.book} updateShelf={this.props.updateShelf}/>
             </div>
           </div>
           <div className="book-title">{this.props.book.title}</div>

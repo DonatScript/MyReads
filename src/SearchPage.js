@@ -5,16 +5,30 @@ import Book from './Book'
 
 class SearchPage extends Component {
   state = {
+    validationText: true,
     data: []
   }
 
   searchBook(text) {
-    BooksAPI.search(text).then((data) => {
-      console.log(data);
-      this.setState({ data })
-    }).catch((err) => {
-      console.log(err);
-    })
+    if(text.length !== 0){
+      BooksAPI.search(text).then((data) => {
+        if(data.length > 0){
+          this.setState({
+            validationText: true,
+            data: data
+          })
+        }
+      }).catch((err) => {
+        console.log(err)
+        this.setState({
+          validationText: false
+        })
+      })
+    }else{
+      this.setState({
+        validationText: false
+      })
+    }
   }
 
   render() {
@@ -45,8 +59,10 @@ class SearchPage extends Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {this.state.data.length !== 0 && (
-              this.state.data.map((book) => {
+            {this.state.validationText && (
+              this.state.data.filter((book) => {
+                return (book.imageLinks !== undefined && book.authors !== undefined)
+              }).map((book) => {
                 return (<li key={book.id}><Book book={book}/></li>)
               })
             )}
