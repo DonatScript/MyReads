@@ -6,12 +6,16 @@ import LibraryPage from './LibraryPage'
 import './App.css'
 
 class BooksApp extends React.Component {
+  state = {
 
+  }
   render() {
     return (
       <div className="app">
         <Route path='/search' render={({ history }) => (
-          <SearchPage />
+          <SearchPage
+            saveHistory={() => {history.push('/')}}
+          />
         )}/>
         <Route exact path='/' render={() => (
           <div>

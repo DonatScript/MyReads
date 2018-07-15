@@ -11,10 +11,17 @@ class LibraryPage extends Component {
       this.setState({ data })
     })
   }
+
   filterBooks(type){
     return (this.state.data.filter((book) => {
       return (book.shelf === type)
     }))
+  }
+
+  static updateShelf(book, shelf) {
+    BooksAPI.update(book,shelf).then((data) =>{
+      console.log(data)
+    })
   }
   render() {
     return (
@@ -24,13 +31,16 @@ class LibraryPage extends Component {
         </div>
         <div className="list-books-content">
           <div>
-            <BookShelf bookShelfTitle={'Currently Reading'}
+            <BookShelf
+              bookShelfTitle={'Currently Reading'}
               data={this.filterBooks('currentlyReading')}
             />
-            <BookShelf bookShelfTitle={'Want to Read'}
+            <BookShelf
+              bookShelfTitle={'Want to Read'}
               data={this.filterBooks('wantToRead')}
             />
-            <BookShelf bookShelfTitle={'Read'}
+            <BookShelf
+              bookShelfTitle={'Read'}
               data={this.filterBooks('read')}
             />
           </div>

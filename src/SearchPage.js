@@ -37,6 +37,7 @@ class SearchPage extends Component {
         <div className="search-books-bar">
           <Link
             className="close-search"
+            onClick={this.props.saveHistory}
             to='/'
             >Close</Link>
           <div className="search-books-input-wrapper">

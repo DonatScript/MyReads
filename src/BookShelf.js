@@ -1,19 +1,10 @@
 import React, { Component } from 'react'
-import * as BooksAPI from './BooksAPI'
 import Book from './Book'
 
 class BookShelf extends Component {
 
   state = {
-    data: []
-  }
 
-  updateShelf(book, shelf) {
-    console.log(book,shelf)
-    BooksAPI.update(book,shelf).then((data) =>{
-      console.log(data)
-      this.setState({ data })
-    })
   }
 
   render() {
@@ -26,7 +17,7 @@ class BookShelf extends Component {
                 this.props.data.map((book) => {
                   return (
                     <li key={book.id}>
-                      <Book book={book} updateShelf={this.updateShelf}/>
+                      <Book book={book}/>
                     </li>)
                 })
             )}

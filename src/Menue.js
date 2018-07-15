@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
+import LibraryPage from './LibraryPage'
 
 class Menu extends Component {
   state = {
-    shelf: this.props.book.shelf
+    shelf: ''
   }
   changeStatus(value) {
     this.setState(
       {shelf: value}
     )
-    this.props.updateShelf(this.props.book,value)
+    LibraryPage.updateShelf(this.props.book,value)
   }
   render() {
     return (
@@ -17,7 +18,7 @@ class Menu extends Component {
           <option value="currentlyReading">Currently Reading</option>
           <option value="wantToRead">Want to Read</option>
           <option value="read">Read</option>
-          <option  selected value="none">None</option>
+          <option selected value="none">None</option>
         </select>
     )
   }
