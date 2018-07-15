@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
-import Menue from './Menue'
+import Controller from './Controller'
 
 class Book extends Component {
-  state = {
-
-  }
 
   render() {
     return (
@@ -16,7 +13,7 @@ class Book extends Component {
 
             </div>
             <div className="book-shelf-changer">
-              <Menue book={this.props.book} />
+              <Controller book={this.props.book} RefreshApp={this.props.RefreshApp} updateShelf={this.props.updateShelf}/>
             </div>
           </div>
           <div className="book-title">{this.props.book.title}</div>

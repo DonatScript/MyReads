@@ -3,10 +3,6 @@ import Book from './Book'
 
 class BookShelf extends Component {
 
-  state = {
-
-  }
-
   render() {
     return (
       <div className="bookshelf">
@@ -17,7 +13,7 @@ class BookShelf extends Component {
                 this.props.data.map((book) => {
                   return (
                     <li key={book.id}>
-                      <Book book={book}/>
+                      <Book book={book} updateShelf={this.props.updateShelf}/>
                     </li>)
                 })
             )}

@@ -1,28 +1,8 @@
 import React, { Component } from 'react'
-import * as BooksAPI from './BooksAPI'
 import BookShelf from './BookShelf'
 
 class LibraryPage extends Component {
-  state = {
-    data: []
-  }
-  componentDidMount() {
-    BooksAPI.getAll().then((data) => {
-      this.setState({ data })
-    })
-  }
 
-  filterBooks(type){
-    return (this.state.data.filter((book) => {
-      return (book.shelf === type)
-    }))
-  }
-
-  static updateShelf(book, shelf) {
-    BooksAPI.update(book,shelf).then((data) =>{
-      console.log(data)
-    })
-  }
   render() {
     return (
       <div className="list-books">
@@ -33,15 +13,27 @@ class LibraryPage extends Component {
           <div>
             <BookShelf
               bookShelfTitle={'Currently Reading'}
-              data={this.filterBooks('currentlyReading')}
+              // data={this.filterBooks('currentlyReading')}
+              data={this.props.data.filter((book) => {
+                return (book.shelf === 'currentlyReading')
+              })}
+              updateShelf={this.props.updateShelf}
             />
             <BookShelf
               bookShelfTitle={'Want to Read'}
-              data={this.filterBooks('wantToRead')}
+              // data={this.filterBooks('wantToRead')}
+              data={this.props.data.filter((book) => {
+                return (book.shelf === 'wantToRead')
+              })}
+              updateShelf={this.props.updateShelf}
             />
             <BookShelf
               bookShelfTitle={'Read'}
-              data={this.filterBooks('read')}
+              // data={this.filterBooks('read')}
+              data={this.props.data.filter((book) => {
+                return (book.shelf === 'read')
+              })}
+              updateShelf={this.props.updateShelf}
             />
           </div>
         </div>
