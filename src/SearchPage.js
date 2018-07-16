@@ -22,12 +22,12 @@ class SearchPage extends Component {
   searchBook = (text) => {
     if(text.length > 0){
       BooksAPI.search(text).then((data) => {
-        const tempBooks = this.props.data.filter((bookFromLibrary) => {
-          return data.map((bookFromSearch) => {
-            return (bookFromLibrary.id === bookFromSearch.id)
-         })
+        const tempBooks = [];
+        data.map((bookFromSearch) => {
+          return this.props.data.filter((bookFromParent) => {
+            return (bookFromParent.id === bookFromSearch.id)
+         }).map(b => {return tempBooks.push(b)})
         })
-        console.log(this.unique([...tempBooks , ...data]).map(b => b.id));
         this.setState((state) =>({
           searchText: text,
           data: this.unique([...tempBooks , ...data])

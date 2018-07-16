@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import SearchPage from './SearchPage'
 import LibraryPage from './LibraryPage'
@@ -29,26 +29,28 @@ updateShelf = (book, shelf) => {
   render() {
     return (
       <div className="app">
-        <Route path='/search' render={({ history }) => (
-          <SearchPage
-            data={this.state.data}
-            updateShelf={this.updateShelf}
-            saveHistory={() => {history.push('/')}}
-          />
-        )}/>
-        <Route exact path='/' render={() => (
-          <div>
-            <LibraryPage
+        <Switch>
+          <Route path='/search' render={({ history }) => (
+            <SearchPage
               data={this.state.data}
               updateShelf={this.updateShelf}
+              saveHistory={() => {history.push('/')}}
             />
-            <div className="open-search">
-              <Link
-                to='/search'
-                >Add a book</Link>
+          )}/>
+          <Route exact path='/' render={() => (
+            <div>
+              <LibraryPage
+                data={this.state.data}
+                updateShelf={this.updateShelf}
+              />
+              <div className="open-search">
+                <Link
+                  to='/search'
+                  >Add a book</Link>
+              </div>
             </div>
-          </div>
-        )}/>
+          )}/>
+        </Switch>
       </div>
     )
   }
