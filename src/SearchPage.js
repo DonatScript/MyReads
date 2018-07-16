@@ -24,6 +24,11 @@ class SearchPage extends Component {
           data: []
         })
       })
+    }else{
+      this.setState({
+        searchText: '',
+        data: []
+      })
     }
   }
 
@@ -56,7 +61,7 @@ class SearchPage extends Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {this.state.searchText.length > 0 && (
+            {this.state.searchText.length > 1 && (
               this.state.data.filter((book) => {
                 return (book.imageLinks !== undefined && book.authors !== undefined)
               }).map((book) => {
