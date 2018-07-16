@@ -14,7 +14,6 @@ class BooksApp extends React.Component {
 
 componentDidMount = () => {
   BooksAPI.getAll().then((data) => {
-    console.log(data)
     this.setState({ data })
   })
 }
@@ -32,6 +31,7 @@ updateShelf = (book, shelf) => {
       <div className="app">
         <Route path='/search' render={({ history }) => (
           <SearchPage
+            data={this.state.data}
             updateShelf={this.updateShelf}
             saveHistory={() => {history.push('/')}}
           />

@@ -8,15 +8,30 @@ class SearchPage extends Component {
     searchText: '',
     data: []
   }
+  unique = (array) => {
+      var a = array.concat();
+      for(var i=0; i<a.length; ++i) {
+          for(var j=i+1; j<a.length; ++j) {
+              if(a[i].id === a[j].id)
+                  a.splice(j--, 1);
+          }
+      }
 
+      return a;
+  }
   searchBook = (text) => {
     if(text.length > 0){
       BooksAPI.search(text).then((data) => {
-        console.log(data);
-        this.setState({
-          searchText: text,
-          data: data
+        const tempBooks = this.props.data.filter((bookFromLibrary) => {
+          return data.map((bookFromSearch) => {
+            return (bookFromLibrary.id === bookFromSearch.id)
+         })
         })
+        console.log(this.unique([...tempBooks , ...data]).map(b => b.id));
+        this.setState((state) =>({
+          searchText: text,
+          data: this.unique([...tempBooks , ...data])
+        }))
       }).catch((err) => {
         console.log(err)
         this.setState({
@@ -61,7 +76,8 @@ class SearchPage extends Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {this.state.searchText.length > 1 && (
+            {this.state.searchText.length > 1 &&
+              this.state.data.length && (
               this.state.data.filter((book) => {
                 return (book.imageLinks !== undefined && book.authors !== undefined)
               }).map((book) => {
